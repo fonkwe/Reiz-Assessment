@@ -17,7 +17,7 @@ export default function Filter() {
 
   function filterCountries(countries: Country[], criteria: CountryCriteria): Country[] {
     const filteredCountries = countries.filter((country) => {
-      if (!country.hasOwnProperty(key) || country[key] !== criteria[key]) {
+      if (country < 65300.0 ) {
     
      }
     }
