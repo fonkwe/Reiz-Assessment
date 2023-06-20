@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
 import Header from '../src/components/Header'
 import ListOfCountries from '../src/components/ListOfCountries';
+
 
 
 export default function Home() {

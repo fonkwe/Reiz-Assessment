@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Button from "./Button";
 
 export interface CountryData {
   name: string;
@@ -60,30 +61,21 @@ export default function ListOfCountries({ name, region, area }: CountryData) {
         <ul className="mt-10">
           <div className="flex justify-between">
             <div className="p-2">
-              <button
-                className="p-2 mx-auto bg-green-400 text-black font-bold  border border-green-700 rounded"
-                onClick={() => {
-                  page !== 1 && setPage(page - 1);
-                } }
-              >
-                Previous Page
-              </button>
-              <button
-                className="p-2 ml-5 mx-auto bg-green-400 text-black font-bold border border-green-700 rounded"
-                onClick={() => {
-                  page !== totalPages && setPage(page + 1);
-                } }
-              >
-                 Next Page 
-              </button>
+            <Button 
+              onClick={() => {
+                page !== 1 && setPage(page - 1);
+              } }
+              title={'Previous Page'} 
+            />
+            <Button 
+              onClick={() => {
+                page !== totalPages && setPage(page + 1);
+              } } 
+              title={'Next Page'} 
+            />
             </div>
             <div className="w-[15%]">
-              <button
-                className="p-2 ml-5 mx-auto bg-green-400 text-black font-bold border border-green-700 rounded"
-                onClick={() => {}}
-              >
-                Filter Countries
-              </button>
+            <Button onClick={() => {}} title={'Filter Countries'} />
             </div>
           </div>
           {paginatedData?.sort().map((data: CountryData, idex) => (
