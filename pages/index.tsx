@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <div className="bg-green-100 mx-auto">
         <Header />
-        <ListOfCountries name={''} region={""} independent={false} />
+        <ListOfCountries name={''} region={""} area={0} independent={false} />
       </div>
     </>
   )

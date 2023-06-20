@@ -1,5 +1,18 @@
 import React, { useEffect } from 'react'
 
+interface CountryCriteria {
+  name?: string;
+  region?: string;
+  area?: number;
+}
+
+interface Country {
+  name: string;
+  region: string;
+  area: number;
+}
+
+
 export default function Filter() {  
 
   function filterCountriesByArea(countries: Country[], criteria: CountryCriteria): Country[] {
