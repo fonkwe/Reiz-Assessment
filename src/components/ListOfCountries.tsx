@@ -8,7 +8,6 @@ export interface CountryData {
   independent: boolean;
 }
 
-let results: CountryData[];
 
 export default function ListOfCountries({ name, region, area }: CountryData) {
   // useStates to handle the different states
@@ -45,6 +44,7 @@ export default function ListOfCountries({ name, region, area }: CountryData) {
     paginate(dataCopy, page, 10);
   }, []);
 
+// Functions that handles filtering as requried 
   function filterCountries() {
     const filteredCountries = dataCopy.filter(({ country }: any) => {
       const lithuaniaArea = data.find(
@@ -56,25 +56,8 @@ export default function ListOfCountries({ name, region, area }: CountryData) {
     setDataCopy(filteredCountries);
     paginate(filteredCountries, 1, 10);
   }
-  //Filtering of results to meet filtery criteria
-  // function filterCountries(paginatedResult: {
-  //   area: number | undefined;
-  //   region: string;
-  // }) {
-  //   const filteredCountries = paginatedData.filter((data) => {
-  //     if (paginatedResult.area === undefined) {
-  //       return false;
-  //     }
-  //     const lithuaniaArea = 65300;
-  //     const oceaniaRegion = "Oceania";
-  //     return (
-  //       paginatedResult.area < lithuaniaArea &&
-  //       paginatedResult.region === oceaniaRegion
-  //     );
-  //   });
-  //   setResults(filteredCountries);
-  // }
 
+ // Displaying Results
   return (
     <div className="w-[100%] mx-auto">
       <ul className="mt-10">
