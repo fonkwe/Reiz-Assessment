@@ -2,7 +2,6 @@ import Header from '../src/components/Header'
 import ListOfCountries from '../src/components/ListOfCountries';
 
 
-
 export default function Home() {
  
   return (

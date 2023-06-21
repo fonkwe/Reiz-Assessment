@@ -8,6 +8,7 @@ export interface CountryData {
   independent: boolean;
 }
 
+let results: CountryData[];
 
 export default function ListOfCountries({ name, region, area }: CountryData) {
   // useStates to handle the different states
@@ -17,6 +18,7 @@ export default function ListOfCountries({ name, region, area }: CountryData) {
   const [error, setError] = useState({});
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [filter, setFilter] = useState(false);
   const [results, setResults] = useState([]);
 
   // Fetching data from the API
@@ -42,22 +44,38 @@ export default function ListOfCountries({ name, region, area }: CountryData) {
 
   useEffect(() => {
     paginate(dataCopy, page, 10);
-  }, []);
+  }, [page]);
 
-// Functions that handles filtering as requried 
-  function filterCountries() {
-    const filteredCountries = dataCopy.filter(({ country }: any) => {
-      const lithuaniaArea = data.find(
-        ({ country }: any) => country?.name === "Lithuania"
-      )?.area;
+  useEffect(() => {
+    //Filter Function to filter according to Requirement
+    function filterCountries() {
+      const filteredCountries = dataCopy.filter((country: any) => {
+        const lithuaniaArea = data.find(
+          (country: any) => country?.name === "Lithuania"
+        ).area;
+        console.log("lithuania area: ", lithuaniaArea);
+        return country?.region === "Oceania" && country?.area < lithuaniaArea;
+      });
+      console.log("filtered countries: ", filteredCountries);
+      setDataCopy(filteredCountries);
+      setPage(1);
+      paginate(filteredCountries, page, 10);
+    }
 
-      return country.region === "Oceania" && country.area < lithuaniaArea;
-    });
-    setDataCopy(filteredCountries);
-    paginate(filteredCountries, 1, 10);
-  }
+    //Reset Filter back to non-filter state
+    function removeFilter() {
+      setDataCopy(data);
+      setPage(1);
+      paginate(dataCopy, page, 10);
+    }
 
- // Displaying Results
+    if (filter) {
+      filterCountries();
+    } else {
+      removeFilter();
+    }
+  }, [filter]);
+
   return (
     <div className="w-[100%] mx-auto">
       <ul className="mt-10">
@@ -76,8 +94,12 @@ export default function ListOfCountries({ name, region, area }: CountryData) {
               title={"Next Page"}
             />
           </div>
-          <div className="w-[15%]">
-            <Button onClick={filterCountries} title={"Filter Countries"} />
+          <div className="w-[15%] ">
+            {/* <Button onClick={filterCountries} title={"Filter Countries"} /> */}
+            <label>
+              <input type="checkbox" onClick={() => setFilter(!filter)} />
+              <span> Filter Countries</span>
+            </label>
           </div>
         </div>
         {paginatedData?.sort().map((data: CountryData, idex) => (
